@@ -9,6 +9,7 @@ var KEY_ENTER = 13;
 var KEY_ESC = 27;
 var KEY_UP = 38;
 var KEY_DOWN = 40;
+var KEY_BACKSPACE = 8;
 var cache = [];
 var doc = document;
 var win = global;
@@ -115,11 +116,11 @@ function horsey (el, options) {
     ul.appendChild(li);
     return li;
 
-    function clickedSuggestion () {
+    function clickedSuggestion (el) {
       set(getValue(suggestion));
       hide();
       attachment.focus();
-      crossvent.fabricate(attachment, 'horsey-selected');
+      crossvent.fabricate(el.target, 'horsey-selected');
     }
 
     function filterItem () {
@@ -204,6 +205,8 @@ function horsey (el, options) {
         move();
         stop(e);
       }
+    } else if (which === KEY_BACKSPACE) {
+      show();
     } else if (which === KEY_UP) {
       if (o.autoShowOnUpDown) {
         show();
